@@ -51,7 +51,7 @@ export function HeroSummary({
           </div>
           <div className="metric">
             <span>Weakest</span>
-            <strong>{formatPercent(session.weakestSkill.accuracy)}</strong>
+            <strong>{session.weakestSkill ? formatPercent(session.weakestSkill.accuracy) : "N/A"}</strong>
           </div>
           <div className="metric">
             <span>Next Quiz</span>

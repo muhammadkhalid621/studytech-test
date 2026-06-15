@@ -13,7 +13,12 @@ export function QuizPlan({ items }: QuizPlanProps) {
       </div>
 
       <div className="quiz-list">
-        {items.map((item, index) => (
+        {items.length === 0 ? (
+          <div className="empty-state">
+            <strong>No quiz plan available</strong>
+            <p>Add practice prompts for this skill to build a targeted quiz session.</p>
+          </div>
+        ) : items.map((item, index) => (
           <article className="quiz-item" key={item}>
             <span>Question {index + 1}</span>
             <p>{item}</p>

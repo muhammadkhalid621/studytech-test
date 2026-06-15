@@ -15,7 +15,12 @@ export function Flashcards({ flashcards }: FlashcardsProps) {
       </div>
 
       <div className="subgrid">
-        {flashcards.map((card) => (
+        {flashcards.length === 0 ? (
+          <div className="empty-state">
+            <strong>No flashcards available</strong>
+            <p>Add study content for the selected skill to show review prompts.</p>
+          </div>
+        ) : flashcards.map((card) => (
           <article className="flashcard" key={card.front}>
             <span>Front</span>
             <p>

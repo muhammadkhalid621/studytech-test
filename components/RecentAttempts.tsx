@@ -17,7 +17,12 @@ export function RecentAttempts({ attempts }: RecentAttemptsProps) {
       </div>
 
       <div className="attempt-list">
-        {attempts.slice(0, 8).map((attempt) => (
+        {attempts.length === 0 ? (
+          <div className="empty-state">
+            <strong>No quiz attempts yet</strong>
+            <p>Once a student answers questions, their latest attempts will appear here.</p>
+          </div>
+        ) : attempts.slice(0, 8).map((attempt) => (
           <article className="attempt-row" key={attempt.id}>
             <div>
               <span>{formatDateTime(attempt.answeredAt)}</span>

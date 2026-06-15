@@ -40,10 +40,12 @@ export function getSkillPerformance(userId: string): SkillPerformance[] {
         return question?.skillId === skill.id;
       });
 
-      const correct = matchingAttempts.filter((attempt) => attempt.isCorrect).length;
-      const accuracy = matchingAttempts.length > 0 ? correct / matchingAttempts.length : 1;
+      const validAttempts = matchingAttempts.filter((attempt) => getQuestionById(attempt.questionId));
+      const correct = validAttempts.filter((attempt) => attempt.isCorrect).length;
+      const attemptCount = validAttempts.length;
+      const accuracy = attemptCount > 0 ? correct / attemptCount : 1;
       const context = getSkillContext(skill);
-      const missedAttemptScore = matchingAttempts.length * (1 - accuracy);
+      const missedAttemptScore = attemptCount * (1 - accuracy);
       const examWeightScore = context.examWeight / 100;
       const weaknessScore = missedAttemptScore + examWeightScore;
 
@@ -51,7 +53,7 @@ export function getSkillPerformance(userId: string): SkillPerformance[] {
         skill,
         skillSetName: context.skillSetName,
         domainName: context.domainName,
-        attempts: matchingAttempts.length,
+        attempts: attemptCount,
         correct,
         accuracy,
         weaknessScore,
@@ -89,6 +91,31 @@ export function getRecentAttempts(userId: string): RecentAttempt[] {
 
 export function createStudySession(userId: string): StudySession {
   const [weakestSkill] = getSkillPerformance(userId);
+
+  if (!weakestSkill) {
+    return {
+      explanation:
+        "No quiz attempts are available yet. Complete a short diagnostic quiz first so the app can identify the best skill to study next.",
+      lessonSummary:
+        "Start with a broad review of the AWS Cloud Practitioner domains: Cloud Concepts, Security and Compliance, Cloud Technology and Services, and Billing, Pricing, and Support. After the first quiz attempt, this section will focus on the weakest measured skill.",
+      flashcards: [
+        {
+          front: "What should a first study session establish?",
+          back: "A baseline across the main exam domains so weak areas can be detected accurately.",
+        },
+        {
+          front: "Why map questions to skills?",
+          back: "It turns quiz results into specific study recommendations instead of a generic score.",
+        },
+        {
+          front: "What happens after the first quiz?",
+          back: "The app ranks attempted skills and recommends the weakest one for focused practice.",
+        },
+      ],
+      quizPlan: defaultQuizPlan,
+    };
+  }
+
   const content = studyContentBySkill[weakestSkill.skill.id] ?? {
     lessonSummary:
       "Review the core definition of this AWS concept, then connect it to a real exam scenario. Focus on when the service or model is used, what problem it solves, and which distractor answers sound similar but are wrong.",
@@ -119,10 +146,12 @@ export function createStudySession(userId: string): StudySession {
 }
 
 export function getOverallAccuracy(userAttempts: QuizAttempt[]) {
-  if (userAttempts.length === 0) {
+  const validAttempts = userAttempts.filter((attempt) => getQuestionById(attempt.questionId));
+
+  if (validAttempts.length === 0) {
     return 0;
   }
 
-  const correct = userAttempts.filter((attempt) => attempt.isCorrect).length;
-  return Math.round((correct / userAttempts.length) * 100);
+  const correct = validAttempts.filter((attempt) => attempt.isCorrect).length;
+  return Math.round((correct / validAttempts.length) * 100);
 }

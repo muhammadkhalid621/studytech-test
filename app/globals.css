@@ -281,6 +281,27 @@ h3 {
   padding: 14px;
 }
 
+.empty-state {
+  width: 100%;
+  padding: 16px;
+  color: var(--muted);
+  background: var(--surface-strong);
+  border: 1px dashed var(--line);
+  border-radius: 8px;
+  line-height: 1.45;
+}
+
+.empty-state.compact {
+  margin-top: 10px;
+  padding: 12px;
+}
+
+.empty-state strong {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--ink);
+}
+
 .flashcard span,
 .quiz-item span,
 .attempt-row span,

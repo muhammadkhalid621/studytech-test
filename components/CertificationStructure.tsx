@@ -17,7 +17,12 @@ export function CertificationStructure({ domains, skillSets, skills }: Certifica
       </div>
 
       <div className="domain-list">
-        {domains.map((domain) => {
+        {domains.length === 0 ? (
+          <div className="empty-state">
+            <strong>No certification structure available</strong>
+            <p>Add domains, skill sets, and skills to show the exam map.</p>
+          </div>
+        ) : domains.map((domain) => {
           const domainSkillSets = skillSets.filter((skillSet) => skillSet.domainId === domain.id);
 
           return (
@@ -27,20 +32,31 @@ export function CertificationStructure({ domains, skillSets, skills }: Certifica
                 <span className="weight">{domain.examWeight}%</span>
               </div>
 
-              {domainSkillSets.map((skillSet) => (
-                <div className="skillset" key={skillSet.id}>
-                  <strong>{skillSet.name}</strong>
-                  <ul>
-                    {skills
-                      .filter((skill) => skill.skillSetId === skillSet.id)
-                      .map((skill) => (
-                        <li className="chip" key={skill.id}>
-                          {skill.name}
-                        </li>
-                      ))}
-                  </ul>
+              {domainSkillSets.length === 0 ? (
+                <div className="empty-state compact">
+                  <strong>No skill sets mapped yet</strong>
+                  <p>This domain is present, but no skill sets are attached.</p>
                 </div>
-              ))}
+              ) : domainSkillSets.map((skillSet) => {
+                const skillSetSkills = skills.filter((skill) => skill.skillSetId === skillSet.id);
+
+                return (
+                  <div className="skillset" key={skillSet.id}>
+                    <strong>{skillSet.name}</strong>
+                    {skillSetSkills.length === 0 ? (
+                      <p className="muted">No skills mapped yet.</p>
+                    ) : (
+                      <ul>
+                        {skillSetSkills.map((skill) => (
+                          <li className="chip" key={skill.id}>
+                            {skill.name}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                );
+              })}
             </article>
           );
         })}

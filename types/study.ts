@@ -64,7 +64,7 @@ export type RecentAttempt = QuizAttempt & {
 };
 
 export type StudySession = {
-  weakestSkill: SkillPerformance;
+  weakestSkill?: SkillPerformance;
   explanation: string;
   lessonSummary: string;
   flashcards: Flashcard[];

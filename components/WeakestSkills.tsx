@@ -16,7 +16,18 @@ export function WeakestSkills({ skills }: WeakestSkillsProps) {
       </div>
 
       <div className="skill-list">
-        {skills.slice(0, 6).map((performance) => (
+        {skills.length === 0 ? (
+          <article className="skill-row">
+            <div>
+              <span>No attempts yet</span>
+              <strong>Complete a quiz to calculate weak skills</strong>
+              <p className="muted">
+                Once attempts exist, this list will rank skills by missed answers and exam weight.
+              </p>
+            </div>
+            <div className="score">N/A</div>
+          </article>
+        ) : skills.slice(0, 6).map((performance) => (
           <article className="skill-row" key={performance.skill.id}>
             <div>
               <span>{performance.domainName}</span>
