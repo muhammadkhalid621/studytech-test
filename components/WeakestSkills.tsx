@@ -1,3 +1,4 @@
+import { PanelHeader } from "@/components/PanelHeader";
 import { formatPercent } from "@/lib/format";
 import type { SkillPerformance } from "@/types/study";
 
@@ -8,12 +9,7 @@ type WeakestSkillsProps = {
 export function WeakestSkills({ skills }: WeakestSkillsProps) {
   return (
     <section className="panel">
-      <div className="panel-header">
-        <div>
-          <span className="eyebrow">Weakest Skills</span>
-          <h2>Ranked by misses and exam weight</h2>
-        </div>
-      </div>
+      <PanelHeader eyebrow="Weakest Skills" title="Ranked by misses and exam weight" />
 
       <div className="skill-list">
         {skills.length === 0 ? (

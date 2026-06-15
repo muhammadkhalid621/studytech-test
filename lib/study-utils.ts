@@ -7,7 +7,6 @@ import {
 } from "@/lib/data";
 import { defaultQuizPlan, studyContentBySkill } from "@/lib/study-content";
 import type {
-  Question,
   QuizAttempt,
   RecentAttempt,
   Skill,
@@ -30,19 +29,30 @@ export function getSkillContext(skill: Skill) {
   };
 }
 
+function getValidAttempts(userId?: string) {
+  return attempts.flatMap((attempt) => {
+    if (userId && attempt.userId !== userId) {
+      return [];
+    }
+
+    const question = getQuestionById(attempt.questionId);
+
+    if (!question) {
+      return [];
+    }
+
+    return [{ attempt, question }];
+  });
+}
+
 export function getSkillPerformance(userId: string): SkillPerformance[] {
-  const userAttempts = attempts.filter((attempt) => attempt.userId === userId);
+  const userAttempts = getValidAttempts(userId);
 
   return skills
     .map((skill) => {
-      const matchingAttempts = userAttempts.filter((attempt) => {
-        const question = getQuestionById(attempt.questionId);
-        return question?.skillId === skill.id;
-      });
-
-      const validAttempts = matchingAttempts.filter((attempt) => getQuestionById(attempt.questionId));
-      const correct = validAttempts.filter((attempt) => attempt.isCorrect).length;
-      const attemptCount = validAttempts.length;
+      const matchingAttempts = userAttempts.filter(({ question }) => question.skillId === skill.id);
+      const correct = matchingAttempts.filter(({ attempt }) => attempt.isCorrect).length;
+      const attemptCount = matchingAttempts.length;
       const accuracy = attemptCount > 0 ? correct / attemptCount : 1;
       const context = getSkillContext(skill);
       const missedAttemptScore = attemptCount * (1 - accuracy);
@@ -70,21 +80,15 @@ export function getSkillPerformance(userId: string): SkillPerformance[] {
 }
 
 export function getRecentAttempts(userId: string): RecentAttempt[] {
-  return attempts
-    .filter((attempt) => attempt.userId === userId)
-    .flatMap((attempt) => {
-      const question = getQuestionById(attempt.questionId);
-      const skill = skills.find((item) => item.id === question?.skillId);
+  return getValidAttempts(userId)
+    .map(({ attempt, question }) => {
+      const skill = skills.find((item) => item.id === question.skillId);
 
-      if (!question) {
-        return [];
-      }
-
-      return [{
+      return {
         ...attempt,
-        question: question as Question,
+        question,
         skill,
-      }];
+      };
     })
     .sort((a, b) => new Date(b.answeredAt).getTime() - new Date(a.answeredAt).getTime());
 }

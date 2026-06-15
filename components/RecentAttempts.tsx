@@ -1,3 +1,5 @@
+import { EmptyState } from "@/components/EmptyState";
+import { PanelHeader } from "@/components/PanelHeader";
 import { formatDateTime } from "@/lib/format";
 import type { RecentAttempt } from "@/types/study";
 
@@ -8,20 +10,18 @@ type RecentAttemptsProps = {
 export function RecentAttempts({ attempts }: RecentAttemptsProps) {
   return (
     <section className="panel">
-      <div className="panel-header">
-        <div>
-          <span className="eyebrow">Recent Attempts</span>
-          <h2>Latest quiz history</h2>
-        </div>
-        <span className="chip">{attempts.length} attempts</span>
-      </div>
+      <PanelHeader
+        eyebrow="Recent Attempts"
+        title="Latest quiz history"
+        action={<span className="chip">{attempts.length} attempts</span>}
+      />
 
       <div className="attempt-list">
         {attempts.length === 0 ? (
-          <div className="empty-state">
-            <strong>No quiz attempts yet</strong>
-            <p>Once a student answers questions, their latest attempts will appear here.</p>
-          </div>
+          <EmptyState
+            title="No quiz attempts yet"
+            message="Once a student answers questions, their latest attempts will appear here."
+          />
         ) : attempts.slice(0, 8).map((attempt) => (
           <article className="attempt-row" key={attempt.id}>
             <div>

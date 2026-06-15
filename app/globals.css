@@ -302,6 +302,10 @@ h3 {
   color: var(--ink);
 }
 
+.subgrid .empty-state {
+  grid-column: 1 / -1;
+}
+
 .flashcard span,
 .quiz-item span,
 .attempt-row span,

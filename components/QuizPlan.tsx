@@ -1,3 +1,6 @@
+import { EmptyState } from "@/components/EmptyState";
+import { PanelHeader } from "@/components/PanelHeader";
+
 type QuizPlanProps = {
   items: string[];
 };
@@ -5,19 +8,14 @@ type QuizPlanProps = {
 export function QuizPlan({ items }: QuizPlanProps) {
   return (
     <section className="panel">
-      <div className="panel-header">
-        <div>
-          <span className="eyebrow">5-question Plan</span>
-          <h2>Targeted retrieval practice</h2>
-        </div>
-      </div>
+      <PanelHeader eyebrow="5-question Plan" title="Targeted retrieval practice" />
 
       <div className="quiz-list">
         {items.length === 0 ? (
-          <div className="empty-state">
-            <strong>No quiz plan available</strong>
-            <p>Add practice prompts for this skill to build a targeted quiz session.</p>
-          </div>
+          <EmptyState
+            title="No quiz plan available"
+            message="Add practice prompts for this skill to build a targeted quiz session."
+          />
         ) : items.map((item, index) => (
           <article className="quiz-item" key={item}>
             <span>Question {index + 1}</span>
