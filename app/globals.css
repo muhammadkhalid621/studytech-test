@@ -1,0 +1,411 @@
+:root {
+  --background: #f6f4ef;
+  --surface: #fffdf8;
+  --surface-strong: #ffffff;
+  --ink: #17202a;
+  --muted: #65717d;
+  --line: #ded8ce;
+  --accent: #0f766e;
+  --accent-strong: #0b5d56;
+  --warm: #d97706;
+  --danger: #c2410c;
+  --success: #15803d;
+  --shadow: 0 18px 50px rgba(23, 32, 42, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--background);
+}
+
+body {
+  margin: 0;
+  color: var(--ink);
+  background:
+    linear-gradient(180deg, rgba(255, 253, 248, 0.9) 0%, rgba(246, 244, 239, 0) 42%),
+    var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+a {
+  color: inherit;
+}
+
+.page {
+  width: min(1180px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 32px 0 56px;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.eyebrow {
+  color: var(--accent-strong);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+h1 {
+  max-width: 780px;
+  font-size: clamp(2.25rem, 5vw, 5.35rem);
+  line-height: 0.95;
+  letter-spacing: 0;
+}
+
+h2 {
+  font-size: 1.25rem;
+  line-height: 1.25;
+}
+
+h3 {
+  font-size: 1rem;
+  line-height: 1.3;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(300px, 0.75fr);
+  gap: 24px;
+  align-items: stretch;
+  margin-bottom: 24px;
+}
+
+.hero-copy {
+  min-height: 330px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 32px 0;
+}
+
+.hero-copy p {
+  max-width: 620px;
+  color: var(--muted);
+  font-size: 1.08rem;
+  line-height: 1.65;
+}
+
+.cert-panel,
+.panel,
+.recommendation,
+.flashcard,
+.quiz-item,
+.attempt-row,
+.skill-row {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.cert-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 330px;
+  padding: 24px;
+  box-shadow: var(--shadow);
+}
+
+.metric-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.metric {
+  min-height: 90px;
+  padding: 14px;
+  background: var(--surface-strong);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.metric strong {
+  display: block;
+  margin-top: 8px;
+  font-size: 1.55rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.panel {
+  padding: 20px;
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.domain-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.domain {
+  padding: 16px 0;
+  border-top: 1px solid var(--line);
+}
+
+.domain:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.domain-title {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 10px;
+}
+
+.weight {
+  flex: 0 0 auto;
+  color: var(--accent-strong);
+  font-weight: 700;
+}
+
+.skillset {
+  margin-top: 12px;
+  padding-left: 14px;
+  border-left: 3px solid rgba(15, 118, 110, 0.2);
+}
+
+.skillset ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0;
+  margin: 10px 0 0;
+  list-style: none;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  padding: 5px 9px;
+  color: #24313c;
+  background: #eef7f5;
+  border: 1px solid #c9e6e0;
+  border-radius: 999px;
+  font-size: 0.84rem;
+}
+
+.recommendation {
+  padding: 24px;
+  background: #102a43;
+  color: #f8fafc;
+  border-color: #102a43;
+  box-shadow: var(--shadow);
+}
+
+.recommendation .muted,
+.recommendation .eyebrow {
+  color: #cbd5e1;
+}
+
+.recommendation h2 {
+  margin: 8px 0 10px;
+  font-size: 2rem;
+}
+
+.lesson {
+  margin-top: 18px;
+  padding: 16px;
+  color: #17202a;
+  background: #fffdf8;
+  border-radius: 8px;
+  line-height: 1.55;
+}
+
+.subgrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.flashcard {
+  min-height: 150px;
+  padding: 14px;
+}
+
+.flashcard span,
+.quiz-item span,
+.attempt-row span,
+.skill-row span,
+.metric span {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.flashcard p {
+  margin-top: 8px;
+  line-height: 1.45;
+}
+
+.quiz-list,
+.attempt-list,
+.skill-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.quiz-item {
+  padding: 14px;
+}
+
+.quiz-item p {
+  margin-top: 6px;
+  line-height: 1.45;
+}
+
+.attempt-row,
+.skill-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+  padding: 12px;
+}
+
+.attempt-row strong,
+.skill-row strong {
+  display: block;
+  margin: 4px 0;
+}
+
+.status {
+  display: inline-flex;
+  justify-content: center;
+  min-width: 74px;
+  padding: 6px 8px;
+  border-radius: 999px;
+  color: white;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.status.correct {
+  background: var(--success);
+}
+
+.status.incorrect {
+  background: var(--danger);
+}
+
+.score {
+  text-align: right;
+  font-weight: 700;
+}
+
+.bar {
+  height: 8px;
+  margin-top: 8px;
+  overflow: hidden;
+  background: #e8e2d8;
+  border-radius: 999px;
+}
+
+.bar span {
+  display: block;
+  height: 100%;
+  background: var(--warm);
+}
+
+@media (max-width: 900px) {
+  .hero,
+  .grid,
+  .subgrid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-copy,
+  .cert-panel {
+    min-height: auto;
+  }
+}
+
+@media (max-width: 620px) {
+  .page {
+    width: min(100% - 24px, 1180px);
+    padding-top: 18px;
+  }
+
+  .topbar,
+  .panel-header,
+  .domain-title,
+  .attempt-row,
+  .skill-row {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .attempt-row,
+  .skill-row {
+    display: flex;
+  }
+
+  .metric-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .score {
+    text-align: left;
+  }
+}
