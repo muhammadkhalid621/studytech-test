@@ -11,6 +11,13 @@ npm run dev
 
 Then open `http://localhost:3000`.
 
+## Assessment checklist
+
+- GitHub repo link: [muhammadkhalid621/studytech-test](https://github.com/muhammadkhalid621/studytech-test)
+- Deployed link: [studytech-test.vercel.app](https://studytech-test.vercel.app/)
+- Loom/video walkthrough: record separately, 5 minutes max.
+- Local verification: `npm run lint` and `npm run build`.
+
 ## What I built
 
 - A certification structure for AWS Certified Cloud Practitioner (`CLF-C02`) with domains, skill sets, and skills.
@@ -42,6 +49,7 @@ Then open `http://localhost:3000`.
 
 - Mock JSON-style data instead of a database, because this task is about modelling and product logic rather than infrastructure.
 - Simple deterministic study content instead of a live AI integration, so the prototype runs without API keys and is easy to review.
+- No live AI feature is included in the UI. The study recommendation is generated with deterministic TypeScript functions so the scoring and output are transparent during review.
 - Single-page dashboard instead of auth, routing, or admin tooling.
 - Lightweight CSS instead of a full component library to keep the code easy to inspect during a live interview.
 
